@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Happy 19th Birthday Sanika 🎂</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<style>
+body{
+    margin:0;
+    font-family:Poppins;
+    background:linear-gradient(135deg,#ffd6e8,#e6ccff);
+    text-align:center;
+    overflow:hidden;
+}
+
+.section{
+    display:none;
+    height:100vh;
+    width:100%;
+    position:absolute;
+    top:0;
+    left:0;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+}
+
+.active{
+    display:flex;
+}
+
+button{
+    padding:12px 25px;
+    border:none;
+    border-radius:30px;
+    background:#ff69b4;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+    margin-top:20px;
+    transition:0.3s;
+}
+button:hover{
+    transform:scale(1.1);
+}
+
+h1{
+    font-family:'Dancing Script';
+    font-size:40px;
+}
+
+.cake{
+    width:200px;
+    height:150px;
+    background:white;
+    border-radius:20px;
+    position:relative;
+    margin-top:30px;
+}
+
+.decorated{
+    background:linear-gradient(pink,white);
+}
+
+.candle{
+    width:10px;
+    height:40px;
+    background:#ff4d4d;
+    position:absolute;
+    bottom:150px;
+}
+
+.flame{
+    width:10px;
+    height:10px;
+    background:orange;
+    border-radius:50%;
+    position:absolute;
+    top:-10px;
+    animation:flicker 0.3s infinite alternate;
+}
+
+@keyframes flicker{
+    from{transform:scale(1);}
+    to{transform:scale(1.2);}
+}
+
+.card{
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    width:300px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+}
+
+img.photo{
+    width:150px;
+    border-radius:20px;
+    margin-bottom:15px;
+}
+
+.dog{
+    position:absolute;
+    width:100px;
+}
+
+.dog1{ bottom:20px; left:20px;}
+.dog2{ bottom:20px; right:20px;}
+
+</style>
+</head>
+
+<body>
+
+<!-- LOADING -->
+<div class="section active" id="loading">
+    <h1>Loading Birthday Surprise... 🎂</h1>
+</div>
+
+<!-- INTRO -->
+<div class="section" id="intro">
+    <h1>A cutipie was born 19 years ago today 💗</h1>
+    <p>Yes... it's YOU Sanika 🫶<br>A little surprise awaits...</p>
+    <button onclick="nextSection('cakeSection')">Start the Surprise 🎁</button>
+</div>
+
+<!-- CAKE SECTION -->
+<div class="section" id="cakeSection">
+    <h1>Let's Prepare Your Cake 🎂</h1>
+    <div class="cake" id="cake"></div>
+    <button id="decorateBtn" onclick="decorateCake()">Decorate Cake 🎨</button>
+    <button id="candleBtn" style="display:none;" onclick="addCandles()">Put the Candles 🕯</button>
+    <button id="blowBtn" style="display:none;" onclick="blowCandles()">Blow the Candles 🌬</button>
+</div>
+
+<!-- FINAL CARD -->
+<div class="section" id="final">
+    <div class="card">
+        <img src="sanika.jpg" class="photo">
+        <h1>To My Bestie Sanika 💖</h1>
+        <p>Happiest 19th Birthday 🎂<br>
+        Thank you for being the purest soul in my life.<br>
+        Stay the same sweet and amazing girl forever 💕<br>
+        I’ll always cheer for you.<br><br>
+        – Vedant</p>
+    </div>
+
+    <!-- Cute Images -->
+    <img src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif" class="dog dog1">
+    <img src="https://media.giphy.com/media/10dU7AN7xsi1I4/giphy.gif" class="dog dog2">
+</div>
+
+<script>
+
+setTimeout(()=>{
+    nextSection('intro');
+},3000);
+
+function nextSection(id){
+    document.querySelectorAll('.section').forEach(sec=>sec.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+}
+
+function decorateCake(){
+    document.getElementById("cake").classList.add("decorated");
+    document.getElementById("decorateBtn").style.display="none";
+    document.getElementById("candleBtn").style.display="inline-block";
+}
+
+function addCandles(){
+    let cake=document.getElementById("cake");
+    for(let i=0;i<5;i++){
+        let candle=document.createElement("div");
+        candle.className="candle";
+        candle.style.left=30 + i*30 + "px";
+
+        let flame=document.createElement("div");
+        flame.className="flame";
+        candle.appendChild(flame);
+
+        cake.appendChild(candle);
+    }
+    document.getElementById("candleBtn").style.display="none";
+    document.getElementById("blowBtn").style.display="inline-block";
+}
+
+function blowCandles(){
+    document.querySelectorAll(".flame").forEach(f=>f.remove());
+    confetti();
+    setTimeout(()=>{
+        nextSection('final');
+    },2000);
+}
+
+</script>
+
+</body>
+</html>
