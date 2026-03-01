@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Happy 19th Birthday Sanika 🎂</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<style>
+
+body{
+    margin:0;
+    font-family:'Poppins',sans-serif;
+    text-align:center;
+    overflow:hidden;
+    background: linear-gradient(-45deg,#ff9a9e,#fad0c4,#fbc2eb,#a18cd1);
+    background-size:400% 400%;
+    animation:gradientBG 8s ease infinite;
+}
+
+@keyframes gradientBG{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+.section{
+    display:none;
+    height:100vh;
+    width:100%;
+    position:absolute;
+    top:0;
+    left:0;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    padding:20px;
+}
+
+.active{
+    display:flex;
+}
+
+h1{
+    font-family:'Dancing Script',cursive;
+    font-size:42px;
+    color:white;
+    text-shadow:0 4px 15px rgba(0,0,0,0.3);
+}
+
+p{
+    color:white;
+    font-size:18px;
+}
+
+button{
+    padding:12px 28px;
+    border:none;
+    border-radius:30px;
+    background:linear-gradient(45deg,#ff6ec4,#7873f5);
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+    margin-top:20px;
+    transition:0.3s;
+}
+
+button:hover{
+    transform:scale(1.1);
+}
+
+/* Cake */
+
+.cake{
+    width:220px;
+    height:160px;
+    background:white;
+    border-radius:20px;
+    position:relative;
+    margin-top:30px;
+    transition:0.5s;
+}
+
+.decorated{
+    background:linear-gradient(pink,white);
+    box-shadow:0 0 30px pink;
+}
+
+.candle{
+    width:10px;
+    height:40px;
+    background:#ff4d4d;
+    position:absolute;
+    bottom:160px;
+    border-radius:5px;
+}
+
+.flame{
+    width:10px;
+    height:10px;
+    background:orange;
+    border-radius:50%;
+    position:absolute;
+    top:-12px;
+    animation:flicker 0.3s infinite alternate;
+}
+
+@keyframes flicker{
+    from{transform:scale(1);}
+    to{transform:scale(1.3);}
+}
+
+/* Card */
+
+.card{
+    background:white;
+    padding:30px;
+    border-radius:25px;
+    width:320px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.3);
+    animation:fadeIn 1s ease forwards;
+}
+
+@keyframes fadeIn{
+    from{opacity:0;transform:scale(0.8);}
+    to{opacity:1;transform:scale(1);}
+}
+
+img.photo{
+    width:150px;
+    border-radius:20px;
+    margin-bottom:15px;
+}
+
+/* Cute gifs */
+
+.gif{
+    position:absolute;
+    width:100px;
+}
+
+.gif1{ bottom:10px; left:10px;}
+.gif2{ bottom:10px; right:10px;}
+
+</style>
+</head>
+
+<body>
+
+<!-- LOADING -->
+<div class="section active" id="loading">
+    <h1>Loading Birthday Surprise... 🎂</h1>
+</div>
+
+<!-- INTRO -->
+<div class="section" id="intro">
+    <h1>A cutipie was born 19 years ago today 💗</h1>
+    <p>Yes... it's YOU Sanika 🫶<br>A little surprise awaits...</p>
+    <button onclick="nextSection('cakeSection')">Start the Surprise 🎁</button>
+</div>
+
+<!-- CAKE SECTION -->
+<div class="section" id="cakeSection">
+    <h1>Let's Make Your Cake 🎂</h1>
+    <div class="cake" id="cake"></div>
+    <button id="decorateBtn" onclick="decorateCake()">Decorate Cake 🎨</button>
+    <button id="candleBtn" style="display:none;" onclick="addCandles()">Put the Candles 🕯</button>
+    <button id="blowBtn" style="display:none;" onclick="blowCandles()">Blow the Candles 🌬</button>
+</div>
+
+<!-- FINAL -->
+<div class="section" id="final">
+    <div class="card">
+        <img src="sanika.jpg" class="photo">
+        <h1>To My Bestie Sanika 💖</h1>
+        <p style="color:#444;font-size:15px;">
+        Happiest 19th Birthday 🎂<br><br>
+        Thank you for being the purest soul in my life.<br>
+        May this year bring you success and happiness 💕<br>
+        Stay the same sweet and amazing girl forever.<br><br>
+        – Vedant
+        </p>
+    </div>
+
+    <img src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif" class="gif gif1">
+    <img src="https://media.giphy.com/media/10dU7AN7xsi1I4/giphy.gif" class="gif gif2">
+</div>
+
+<script>
+
+setTimeout(()=>{
+    nextSection('intro');
+},3000);
+
+function nextSection(id){
+    document.querySelectorAll('.section').forEach(sec=>sec.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+}
+
+function decorateCake(){
+    document.getElementById("cake").classList.add("decorated");
+    document.getElementById("decorateBtn").style.display="none";
+    document.getElementById("candleBtn").style.display="inline-block";
+}
+
+function addCandles(){
+    let cake=document.getElementById("cake");
+    for(let i=0;i<7;i++){
+        let candle=document.createElement("div");
+        candle.className="candle";
+        candle.style.left=30 + i*25 + "px";
+
+        let flame=document.createElement("div");
+        flame.className="flame";
+        candle.appendChild(flame);
+
+        cake.appendChild(candle);
+    }
+    document.getElementById("candleBtn").style.display="none";
+    document.getElementById("blowBtn").style.display="inline-block";
+}
+
+function blowCandles(){
+    document.querySelectorAll(".flame").forEach(f=>f.remove());
+
+    confetti({
+        particleCount:150,
+        spread:100,
+        origin:{y:0.6}
+    });
+
+    setTimeout(()=>{
+        nextSection('final');
+    },2000);
+}
+
+</script>
+
+</body>
+</html>
